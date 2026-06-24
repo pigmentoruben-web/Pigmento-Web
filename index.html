@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pigmento | Comunicación, Diseño y Marketing</title>
+    <meta name="description"
+        content="Estudio de diseño y comunicación para marcas que necesitan orden, identidad y dirección.">
+
+    <!-- Tipografía: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Iconos (Lucide o FontAwesome placeholder) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="noise-bg">
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-half preloader-top"></div>
+        <div class="preloader-half preloader-bottom"></div>
+        <div class="preloader-content">
+            <div class="preloader-text-wrapper">
+                <div class="preloader-text">
+                    <img src="asset/camaleon-silueta.png" alt="Icono Pigmento" class="preloader-icon">
+                    <div class="preloader-words">
+                        <span class="preloader-word">COMUNICACIÓN</span>
+                        <span class="preloader-dot">&nbsp;·&nbsp;</span>
+                        <span class="preloader-word">DISEÑO</span>
+                        <span class="preloader-dot">&nbsp;·&nbsp;</span>
+                        <span class="preloader-word">MARKETING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SVG Filter para Grano Analógico -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+        <filter id="grainy-noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+        </filter>
+    </svg>
+
+    <!-- Header & Menú -->
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="#inicio">
+                    <img src="asset/logo.svg" alt="Pigmento Logo" class="brand-logo">
+                </a>
+            </div>
+            <nav id="main-nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#que-hacemos">Qué hacemos</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#metodo">Método</a>
+                <a href="#cta-final" class="cta-nav">Tu marca</a>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i data-lucide="menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <div class="hero-content scroll-reveal">
+                <p class="hero-tagline">Comunicación • Diseño • Marketing</p>
+                <h1>Para marcas que buscan orden, identidad y dirección.</h1>
+                <p class="hero-description">No hacemos contenido por cumplir. Creamos sistemas de comunicación con intención, identidad y sentido comercial.</p>
+                <div class="hero-ctas">
+                    <a href="#contacto" class="btn-primary">Hablemos de tu marca</a>
+                    <a href="#servicios" class="btn-secondary">Ver servicios</a>
+                </div>
+            </div>
+
+            <div class="ticker-wrapper">
+                <div class="ticker">
+                    <span>MARKETING</span> <span>•</span> <span>REDES SOCIALES</span> <span>•</span>
+                    <span>PACKAGING</span> <span>•</span> <span>DISEÑO GRÁFICO</span> <span>•</span>
+                    <span>ESTRATEGIA</span> <span>•</span> <span>COMUNICACIÓN</span> <span>•</span>
+                    <span>MARKETING</span> <span>•</span> <span>REDES SOCIALES</span> <span>•</span>
+                    <span>PACKAGING</span> <span>•</span> <span>DISEÑO GRÁFICO</span> <span>•</span>
+                    <span>ESTRATEGIA</span> <span>•</span> <span>COMUNICACIÓN</span> <span>•</span>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Sección 1 | Manifiesto - Scroll Scrub Split -->
+        <section id="manifiesto" class="manifiesto-section scroll-scrub-section">
+            <div class="scroll-scrub-sticky">
+                <div class="scroll-scrub-progress-bar"></div>
+                <div class="scroll-scrub-split">
+                    <div class="scroll-scrub-text-side">
+                        <div class="text-reveal-wrapper">
+                            <h2>Publicar no es lo mismo que comunicar</h2>
+                        </div>
+                        <div class="text-reveal-wrapper"><p class="manifiesto-text">Una marca puede estar presente todos los días y aun así no decir nada
+                            relevante. Por eso en Pigmento trabajamos desde la <span class="accent-text">intención</span>,
+                            asegurando que cada pieza, cada palabra y cada color cumpla un objetivo estratégico dentro de un
+                            sistema de comunicación coherente.</p></div>
+                        <div class="text-reveal-wrapper">
+                            <div class="manifiesto-icons">
+                                <img src="asset/iconos.svg" alt="Iconos Pigmento" class="icons-svg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-scrub-visual-side">
+                        <div class="scroll-scrub-video-wrapper">
+                            <canvas class="scroll-scrub-canvas" id="scrubCanvas"></canvas>
+                            <video class="scrub-mobile-video" src="asset/video Posteo Instagram/Pigmento-posteo.mp4" muted loop playsinline autoplay preload="auto"></video>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2 | ¿Qué hacemos? -->
+        <section id="que-hacemos" class="about-section scroll-reveal">
+            <div class="identidad-scroll-wrapper">
+                <div class="identidad-sticky-container">
+                    <!-- Capa 0: Texto gigante de fondo -->
+                    <div class="identidad-bg-marquee">
+                        <div class="identidad-bg-text">
+                            <span>IDENTIDAD</span>
+                            <span>IDENTIDAD</span>
+                            <span>IDENTIDAD</span>
+                            <span>IDENTIDAD</span>
+                            <span>IDENTIDAD</span>
+                            <span>IDENTIDAD</span>
+                            <span>IDENTIDAD</span>
+                            <span>IDENTIDAD</span>
+                        </div>
+                    </div>
+
+                    <!-- Capa 1+2: Composición central + Tarjetas -->
+                    <div class="container relative-z identidad-stage-container">
+
+                        <!-- Título superior -->
+                        <div class="text-reveal-wrapper">
+                            <h2 class="section-title identidad-title">
+                                Construyendo marcas con <span class="accent-text">IDENTIDAD</span>
+                            </h2>
+                        </div>
+
+                        <!-- Escenario de camaleones con efecto de profundidad simétrico -->
+                        <div class="chameleon-stage">
+                            <!-- Izquierda Lejana: Cian (más pequeño, más atrás) -->
+                            <img src="asset/img/croma-cian.webp"
+                                 class="cham-variant"
+                                 data-dir="left-far"
+                                 alt="Variante Azul Pigmento">
+                            <!-- Izquierda Cercana: Magenta (mediano, más adelante) -->
+                            <img src="asset/img/croma-magenta.webp"
+                                 class="cham-variant"
+                                 data-dir="left-near"
+                                 alt="Variante Rosa Pigmento">
+                            <!-- Centro: Camaleón Principal (el más grande) -->
+                            <img src="asset/img/croma-color.webp"
+                                 class="cham-main"
+                                 alt="Camaleón Principal Pigmento">
+                            <!-- Derecha Cercana: Amarillo -->
+                            <img src="asset/img/croma-amarillo.webp"
+                                 class="cham-variant"
+                                 data-dir="right-near"
+                                 alt="Variante Amarilla Pigmento">
+                            <!-- Derecha Lejana: Negro/Gris (más pequeño, más atrás) -->
+                            <img src="asset/img/croma-negro.webp"
+                                 class="cham-variant"
+                                 data-dir="right-far"
+                                 alt="Variante Gris Pigmento">
+                        </div>
+
+                        <!-- Tarjetas de servicios: fila 1×4 en desktop, columna en mobile -->
+                        <div class="identidad-cards-row">
+                            <div class="about-item glass-card anim-card" id="card-comunicacion">
+                                <i data-lucide="message-square"></i>
+                                <h3>Comunicación</h3>
+                                <p>Mensajes, narrativa, tono, campañas, contenidos y estrategia.</p>
+                            </div>
+                            <div class="about-item glass-card anim-card" id="card-marketing">
+                                <i data-lucide="trending-up"></i>
+                                <h3>Marketing</h3>
+                                <p>Planificación, objetivos, audiencias, canales, métricas y crecimiento.</p>
+                            </div>
+                            <div class="about-item glass-card anim-card" id="card-publicidad">
+                                <i data-lucide="megaphone"></i>
+                                <h3>Publicidad</h3>
+                                <p>Campañas creativas, pauta digital, medios, activaciones y lanzamientos.</p>
+                            </div>
+                            <div class="about-item glass-card anim-card" id="card-proyectos">
+                                <i data-lucide="layers"></i>
+                                <h3>Proyectos integrales</h3>
+                                <p>Sistemas completos de comunicación para marcas, empresas e instituciones.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3 | Diferencial -->
+        <section id="diferencial" class="diferencial-section">
+            <div class="dif-bg-circles" aria-hidden="true">
+                <div class="dif-circle dif-circle-1"></div>
+                <div class="dif-circle dif-circle-2"></div>
+                <div class="dif-circle dif-circle-3"></div>
+            </div>
+            <div class="container">
+                <div class="diferencial-content">
+                    <div class="dif-header-reveal">
+                        <div class="text-reveal-wrapper">
+                            <h2 class="dif-title">Marcas auténticas, <span class="accent-text">opiniones reales</span></h2>
+                        </div>
+                        <div class="dif-title-line"></div>
+                    </div>
+                    <div class="testimonios-grid">
+                        <div class="testimonio-card glass-card">
+                            <video class="testimonio-video" src="asset/img/TESTIMONIOS/BAYUCUA.mp4" muted loop playsinline></video>
+                            <div class="testimonio-overlay">
+                                <button class="testimonio-play-btn" aria-label="Reproducir testimonio">
+                                    <i data-lucide="play-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="testimonio-card glass-card">
+                            <video class="testimonio-video" src="asset/img/TESTIMONIOS/LA_POSTA.mp4" muted loop playsinline></video>
+                            <div class="testimonio-overlay">
+                                <button class="testimonio-play-btn" aria-label="Reproducir testimonio">
+                                    <i data-lucide="play-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="testimonio-card glass-card">
+                            <video class="testimonio-video" src="asset/img/TESTIMONIOS/LITNOR.mp4" muted loop playsinline></video>
+                            <div class="testimonio-overlay">
+                                <button class="testimonio-play-btn" aria-label="Reproducir testimonio">
+                                    <i data-lucide="play-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="diferencial-conclusion">Por eso cada decisión tiene que tener intención, criterio y coherencia con la marca.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4 | Servicios (Slider Horizontal) -->
+        <section id="servicios" class="services-section scroll-reveal">
+            <div class="services-header">
+                <div class="services-header-bg">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&h=600&fit=crop" alt="">
+                </div>
+                <div class="services-header-overlay"></div>
+                <div class="services-header-content">
+                    <p class="section-tagline">Servicios</p>
+                    <div class="text-reveal-wrapper"><h2 class="section-title">Servicios destacados</h2></div>
+                    <p class="services-subtitle">Desde la estrategia hasta la ejecución, cada servicio está pensado para construir marcas con identidad.</p>
+                </div>
+            </div>
+            <div class="services-carousel-wrapper">
+                <div class="services-carousel">
+                    <div class="service-card glass-card" data-service-id="estrategia-comunicacion">
+                        <div class="service-card-bg">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=800&fit=crop" alt="">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon"><i data-lucide="compass"></i></div>
+                            <h3>Estrategia de comunicación</h3>
+                            <p>Ordenamos el mensaje de tu marca para que cada canal trabaje con sentido, coherencia y foco comercial.</p>
+                            <button class="btn-service-detail" data-service="estrategia-comunicacion">Ver servicio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="service-card glass-card" data-service-id="identidad-visual-diseno">
+                        <div class="service-card-bg">
+                            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&h=800&fit=crop" alt="">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon"><i data-lucide="palette"></i></div>
+                            <h3>Visual y diseño gráfico</h3>
+                            <p>Diseñamos sistemas visuales que hacen que una marca sea reconocible, consistente y profesional.</p>
+                            <button class="btn-service-detail" data-service="identidad-visual-diseno">Ver servicio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="service-card glass-card" data-service-id="redes-sociales">
+                        <div class="service-card-bg">
+                            <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&h=800&fit=crop" alt="">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="#fff">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </div>
+                            <h3>Redes sociales</h3>
+                            <p>Planificamos contenidos con intención, tono, diseño y objetivos claros.</p>
+                            <button class="btn-service-detail" data-service="redes-sociales">Ver servicio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="service-card glass-card" data-service-id="meta-ads-pauta">
+                        <div class="service-card-bg">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=800&fit=crop" alt="">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon"><i data-lucide="target"></i></div>
+                            <h3>Meta Ads y pauta digital</h3>
+                            <p>Creamos campañas digitales con segmentación, seguimiento y optimización.</p>
+                            <button class="btn-service-detail" data-service="meta-ads-pauta">Ver servicio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="service-card glass-card" data-service-id="campanas-publicitarias">
+                        <div class="service-card-bg">
+                            <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=600&h=800&fit=crop" alt="">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon"><i data-lucide="megaphone"></i></div>
+                            <h3>Campañas publicitarias</h3>
+                            <p>Desarrollamos conceptos, piezas y sistemas de campaña para comunicar mejor.</p>
+                            <button class="btn-service-detail" data-service="campanas-publicitarias">Ver servicio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="service-card glass-card" data-service-id="desarrollo-web">
+                        <div class="service-card-bg">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=800&fit=crop" alt="">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon"><i data-lucide="code"></i></div>
+                            <h3>Desarrollo web</h3>
+                            <p>Ordenamos la información y diseñamos sitios pensados para comunicar, convertir y posicionar.</p>
+                            <button class="btn-service-detail" data-service="desarrollo-web">Ver servicio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="service-card glass-card" data-service-id="proyectos-integrales">
+                        <div class="service-card-bg">
+                            <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&h=800&fit=crop" alt="">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon"><i data-lucide="layers"></i></div>
+                            <h3>Proyectos integrales</h3>
+                            <p>Acompañamos procesos completos: estrategia, identidad, web, redes, campañas y medición.</p>
+                            <button class="btn-service-detail" data-service="proyectos-integrales">Ver servicio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 5 | Método -->
+        <section id="metodo" class="method-section scroll-reveal">
+            <div class="container">
+                <div class="text-reveal-wrapper">
+                    <h2 class="section-title method-title">Pensamos antes de diseñar</h2>
+                    <p class="method-subtitle">Diseñamos antes de publicar, medimos para mejorar</p>
+                </div>
+                <div class="method-timeline">
+                    <div class="method-step glass-card">
+                        <span class="step-num">01</span>
+                        <div class="step-content">
+                            <h3>Diagnóstico</h3>
+                            <p>Analizamos la marca, el negocio, el contexto, los canales y la comunicación actual.</p>
+                        </div>
+                    </div>
+                    <div class="method-step glass-card">
+                        <span class="step-num">02</span>
+                        <div class="step-content">
+                            <h3>Estrategia</h3>
+                            <p>Definimos objetivos, públicos, mensajes, tono, prioridades y oportunidades.</p>
+                        </div>
+                    </div>
+                    <div class="method-step glass-card">
+                        <span class="step-num">03</span>
+                        <div class="step-content">
+                            <h3>Diseño y producción</h3>
+                            <p>Creamos piezas, campañas, contenidos, materiales y soportes.</p>
+                        </div>
+                    </div>
+                    <div class="method-step glass-card">
+                        <span class="step-num">04</span>
+                        <div class="step-content">
+                            <h3>Implementación</h3>
+                            <p>Activamos la comunicación en redes, web, medios, campañas o canales definidos.</p>
+                        </div>
+                    </div>
+                    <div class="method-step glass-card">
+                        <span class="step-num">05</span>
+                        <div class="step-content">
+                            <h3>Medición</h3>
+                            <p>Revisamos resultados, aprendizajes y próximos movimientos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 6 | Proyectos -->
+        <section id="proyectos" class="portfolio-section scroll-reveal">
+            <div class="container">
+                <p class="section-tagline">Casos de Éxito</p>
+                <div class="text-reveal-wrapper"><h2 class="section-title">Proyectos donde la comunicación se ordena y <span class="accent-text">toma forma</span></h2></div>
+                
+                <div class="portfolio-grid">
+                    <!-- Caso 1 -->
+                    <div class="portfolio-item glass-card" data-project-id="dia-de-compras">
+                        <div class="portfolio-img-wrapper">
+                            <div class="portfolio-img-overlay"></div>
+                            <div class="portfolio-img" style="background-image: url('asset/img/DIA-DE-COMPRAS.jpg'); background-size: cover; background-position: center;">
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Ecosistema Digital & Campaña</span>
+                            <h3>Día de Compras</h3>
+                            <div class="portfolio-details">
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Rubro</span>
+                                    <span class="detail-value">Comercio local / Retail</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Problema</span>
+                                    <span class="detail-value">Falta de visibilidad y coordinación entre comercios locales para competir con grandes plataformas.</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Qué hicimos</span>
+                                    <span class="detail-value">Campaña integral de comunicación, plataforma digital unificada, brand identity y estrategia de lanzamiento.</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Canales</span>
+                                    <span class="detail-value">Web, redes sociales, pauta digital, activaciones en punto de venta.</span>
+                                </div>
+                            </div>
+                            <div class="portfolio-result">
+                                <span class="result-badge">+40% de tráfico presencial en comercios adheridos durante la campaña</span>
+                            </div>
+                            <button class="btn-project-detail" data-project="dia-de-compras">Ver caso estudio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Caso 2 -->
+                    <div class="portfolio-item glass-card">
+                        <div class="portfolio-img-wrapper">
+                            <div class="portfolio-img-overlay"></div>
+                            <div class="portfolio-img" style="background-image: url('asset/BAG-IN-BOX.png'); background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #fff;">
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Packaging & Identidad Visual</span>
+                            <h3>Bag in Box</h3>
+                            <div class="portfolio-details">
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Rubro</span>
+                                    <span class="detail-value">Bebidas / Envasado</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Problema</span>
+                                    <span class="detail-value">Envase tradicional sin diferenciación en góndola, baja percepción de valor frente a competidores.</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Qué hicimos</span>
+                                    <span class="detail-value">Diseño de empaque innovador en formato 3D, desarrollo de sistema de marca con identidad visual y naming.</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Canales</span>
+                                    <span class="detail-value">Packaging, punto de venta, redes sociales, material POP.</span>
+                                </div>
+                            </div>
+                            <div class="portfolio-result">
+                                <span class="result-badge">Reconocimiento inmediato en góndola y aumento en rotación de stock</span>
+                            </div>
+                            <button class="btn-project-detail">Ver caso estudio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                    <!-- Caso 3 -->
+                    <div class="portfolio-item glass-card">
+                        <div class="portfolio-img-wrapper">
+                            <div class="portfolio-img-overlay"></div>
+                            <div class="portfolio-img" style="background-image: url('asset/img/REMEROS.jpg'); background-size: cover; background-position: center;">
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Identidad & Producción Textil</span>
+                            <h3>Remeros</h3>
+                            <div class="portfolio-details">
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Rubro</span>
+                                    <span class="detail-value">Indumentaria / Producción local</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Problema</span>
+                                    <span class="detail-value">Marca de remeras sin identidad visual definida ni presencia digital organizada.</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Qué hicimos</span>
+                                    <span class="detail-value">Desarrollo de identidad visual, diseño de prendas, producción de contenido y estrategia de redes sociales.</span>
+                                </div>
+                                <div class="portfolio-detail-item">
+                                    <span class="detail-label">Canales</span>
+                                    <span class="detail-value">Redes sociales, e-commerce, contenido visual, branding.</span>
+                                </div>
+                            </div>
+                            <div class="portfolio-result">
+                                <span class="result-badge">Identidad visual consolidada y presencia digital activa</span>
+                            </div>
+                            <button class="btn-project-detail">Ver caso estudio <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 7 | Validación -->
+        <section id="validacion" class="validation-section scroll-reveal">
+            <div class="container">
+                <div class="validation-grid-container">
+                    <div class="validation-info-col">
+                        <div class="text-reveal-wrapper">
+                            <h2 class="somos-header">
+                                <span class="somos-fixed">Somos</span>
+                                <span class="somos-rotator">
+                                    <span class="somos-word active" data-index="0">comunicación</span>
+                                    <span class="somos-word" data-index="1">diseño</span>
+                                    <span class="somos-word" data-index="2">equipo</span>
+                                </span>
+                            </h2>
+                        </div>
+                        <div class="validation-content-row">
+                            <p class="validation-trayectoria">Con años de experiencia en comunicación, marketing, publicidad y diseño, nos dedicamos a resolver los desafíos más complejos de las marcas en Uruguay y la región.</p>
+                            <div class="cdu-membership-box glass-card">
+                                <img src="asset/Camara-de-diseño.svg" alt="Cámara de Diseño de Uruguay" class="cdu-logo-svg">
+                                <div class="cdu-membership-text">
+                                    <p>Formamos parte activa de la CDU, promoviendo las buenas prácticas, la excelencia técnica y el impacto estratégico del diseño profesional.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 8 | CTA Final -->
+        <section id="cta-final" class="final-cta-section scroll-reveal">
+            <div class="container">
+                <div class="cta-card glass-card">
+                    <div class="text-reveal-wrapper"><h2>¿Tu marca necesita ordenar su comunicación?</h2></div>
+                    <p>Contanos en qué etapa está tu empresa, institución o proyecto. Podemos ayudarte a ordenar el mensaje, mejorar la imagen, planificar contenidos, crear campañas o desarrollar un ecosistema completo de comunicación.</p>
+                    <a href="https://wa.me/59899123456" class="btn btn-large btn-solid">Coordinar una reunión</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-brand">
+                    <img src="asset/logo.svg" alt="Pigmento Logo" class="footer-logo">
+                    <p>Comunicación, diseño y marketing para marcas que necesitan orden, identidad y dirección.</p>
+                </div>
+                <div class="footer-col footer-services">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#servicios">Comunicación estratégica</a></li>
+                        <li><a href="#servicios">Diseño gráfico e identidad</a></li>
+                        <li><a href="#servicios">Marketing digital</a></li>
+                        <li><a href="#servicios">Redes sociales</a></li>
+                        <li><a href="#servicios">Publicidad y campañas</a></li>
+                        <li><a href="#servicios">Desarrollo web</a></li>
+                        <li><a href="#servicios">Proyectos integrales</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-nav">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#que-hacemos">Qué hacemos</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#proyectos">Proyectos</a></li>
+                        <li><a href="#metodo">Método</a></li>
+                        <li><a href="#cta-final">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-contact">
+                    <h4>Contacto</h4>
+                    <ul class="footer-contact-list">
+                        <li><i data-lucide="message-circle"></i> <a href="https://wa.me/59899123456">WhatsApp</a></li>
+                        <li><i data-lucide="mail"></i> <a href="mailto:hola@pigmento.uy">Correo</a></li>
+                        <li><i data-lucide="instagram"></i> <a href="#">Instagram</a></li>
+                        <li><i data-lucide="linkedin"></i> <a href="#">LinkedIn</a></li>
+                    </ul>
+                    <p class="footer-contact-info">Lunes a Viernes, 09:00 a 18:00 hs (UY)</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Política de privacidad</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; Pigmento Comunicación</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/59899123456" class="whatsapp-float" target="_blank">
+        <i data-lucide="message-circle"></i>
+    </a>
+
+    <!-- Scripts -->
+
+    <script src="script.js"></script>
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+    </script>
+
+    <!-- Dynamic Full-Screen Modal -->
+    <div id="dynamic-modal" class="dynamic-modal" aria-hidden="true" role="dialog">
+        <div class="modal-backdrop"></div>
+        <div class="modal-wrapper">
+            <button class="modal-close-btn" aria-label="Cerrar modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-scroll-container">
+                <div class="modal-content-grid" id="modal-content-target">
+                    <!-- Se inyectará dinámicamente mediante JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
