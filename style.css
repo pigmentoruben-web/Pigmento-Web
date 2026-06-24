@@ -1811,11 +1811,8 @@ nav a:hover {
     }
 
     .scroll-scrub-video-wrapper {
-        background: #000;
-    }
-
-    .scroll-scrub-video-wrapper {
         height: 100%;
+        background: #1a1a1a;
     }
 
     .scroll-scrub-progress-bar {

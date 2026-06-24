@@ -1089,6 +1089,24 @@ document.addEventListener('DOMContentLoaded', () => {
         startScroll();
     })();
 
+    // ── CONTROL DE VIDEO SCRUB MÓVIL (sin pausar en carga inicial) ──
+    (function() {
+        const scrubVideo = document.querySelector('.scrub-mobile-video');
+        if (!scrubVideo) return;
+        let hasPlayed = false;
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    scrubVideo.play().catch(() => {});
+                    hasPlayed = true;
+                } else if (hasPlayed) {
+                    scrubVideo.pause();
+                }
+            });
+        }, { threshold: 0.2 });
+        videoObserver.observe(scrubVideo);
+    })();
+
     // ── SOMOS ROTATOR ──
     (function() {
         const words = document.querySelectorAll('.somos-word');
