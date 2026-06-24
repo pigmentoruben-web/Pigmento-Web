@@ -1089,16 +1089,31 @@ document.addEventListener('DOMContentLoaded', () => {
         startScroll();
     })();
 
-    // ── CONTROL DE VIDEO SCRUB MÓVIL (sin pausar en carga inicial) ──
+    // ── CONTROL DE VIDEO SCRUB MÓVIL ──
     (function() {
         const scrubVideo = document.querySelector('.scrub-mobile-video');
         if (!scrubVideo) return;
         let hasPlayed = false;
+
+        // 1) Kickstart con primer toque del usuario (requerido en iOS)
+        function kickstartVideo() {
+            if (!hasPlayed && scrubVideo.paused) {
+                scrubVideo.play().catch(() => {});
+                hasPlayed = true;
+            }
+            document.removeEventListener('touchstart', kickstartVideo);
+            document.removeEventListener('click', kickstartVideo);
+        }
+        document.addEventListener('touchstart', kickstartVideo, { passive: true });
+        document.addEventListener('click', kickstartVideo);
+
+        // 2) Pausar al salir de vista, reanudar al entrar
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    scrubVideo.play().catch(() => {});
-                    hasPlayed = true;
+                    if (scrubVideo.paused && hasPlayed) {
+                        scrubVideo.play().catch(() => {});
+                    }
                 } else if (hasPlayed) {
                     scrubVideo.pause();
                 }
