@@ -187,15 +187,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ── SCROLL SCRUB: SECUENCIA DE FRAMES ──────────────────────────────────────
+    if (window.innerWidth > 768) {
+
     const scrubSection = document.querySelector('.scroll-scrub-section');
     const canvas = document.getElementById('scrubCanvas');
     const ctx = canvas?.getContext('2d');
     const progressBar = document.querySelector('.scroll-scrub-progress-bar');
-
-    // Skip scroll scrub on mobile
-    if (window.innerWidth <= 768) {
-        // canvas already hidden via CSS, just disable JS
-    } else {
 
     const TOTAL_FRAMES = 300;
     const FRAME_BASE = 'asset/img/Secuencia posteo/SC-01_';
@@ -290,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Preload frames in batches
-        let loadIdx = 0;
+    let loadIdx = 0;
     function loadNextBatch() {
         const batchSize = 20;
         let loaded = 0;
@@ -323,6 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     updateScrub();
+
     }
 
     // --- BASE DE DATOS LOCAL PARA MODALES DINÁMICOS ---
@@ -671,6 +669,64 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li>Consultoría Directiva Mensual y Monitoreo de ROI.</li>
                 </ul>
             `
+        },
+
+        // Proyectos que faltaban
+        'bag-in-box': {
+            tag: 'Packaging & Identidad Visual',
+            title: 'Bag in Box',
+            gradient: 'linear-gradient(135deg, #2F2F2F 0%, #1A1A1A 100%)',
+            icon: 'package',
+            client: 'Industria de Bebidas',
+            services: 'Diseño de empaque innovador en formato 3D, desarrollo de sistema de marca con identidad visual y naming.',
+            team: 'Dirección de Arte & Diseño de Packaging',
+            date: 'Proyecto Realizado',
+            desc: `
+                <p><strong>El Desafío:</strong> Envase tradicional sin diferenciación en góndola, baja percepción de valor frente a competidores. La marca necesitaba destacar visualmente en un punto de venta saturado.</p>
+                
+                <h3>Nuestra Estrategia</h3>
+                <p>Desarrollamos un sistema de identidad visual completo para la línea Bag in Box, incluyendo diseño estructural del envase, gráfica 360° y materiales POP:</p>
+                <ul>
+                    <li><strong>Diseño Estructural 3D:</strong> Modelamos el envase para maximizar el impacto visual en góndola y mejorar la ergonomía del producto.</li>
+                    <li><strong>Sistema de Marca:</strong> Creamos naming, paleta cromática y tipografía exclusiva que transmiten innovación y frescura.</li>
+                    <li><strong>Material POP:</strong> Diseñamos exhibidores, folletos y contenido digital para potenciar el lanzamiento.</li>
+                </ul>
+                
+                <h3>Resultados</h3>
+                <ul>
+                    <li>Reconocimiento inmediato en góndola.</li>
+                    <li>Aumento en rotación de stock tras el relanzamiento.</li>
+                    <li>Consistencia visual en todos los puntos de contacto.</li>
+                </ul>
+            `
+        },
+        'remeros': {
+            tag: 'Identidad & Producción Textil',
+            title: 'Remeros',
+            gradient: 'linear-gradient(135deg, #DE075D 0%, #2F2F2F 100%)',
+            icon: 'shirt',
+            client: 'Marca de Indumentaria Local',
+            services: 'Desarrollo de identidad visual, diseño de prendas, producción de contenido y estrategia de redes sociales.',
+            team: 'Dirección de Arte & Social Media',
+            date: 'Proyecto Realizado',
+            desc: `
+                <p><strong>El Desafío:</strong> Marca de remeras sin identidad visual definida ni presencia digital organizada. La marca existía pero no lograba conectar con su audiencia objetivo.</p>
+                
+                <h3>Nuestra Estrategia</h3>
+                <p>Trabajamos desde la raíz del branding hasta la activación en redes para construir una marca textil con personalidad:</p>
+                <ul>
+                    <li><strong>Identidad Visual:</strong> Diseñamos logotipo, paleta de colores, tipografía y sistema gráfico con una estética urbana y contemporánea.</li>
+                    <li><strong>Diseño de Prendas:</strong> creamos estampas y colecciones cápsula alineadas con la identidad de marca.</li>
+                    <li><strong>Producción de Contenido:</strong> Realizamos sesiones de fotos, Reels y contenido orgánico para redes sociales.</li>
+                </ul>
+                
+                <h3>Resultados</h3>
+                <ul>
+                    <li>Identidad visual consolidada y reconocible.</li>
+                    <li>Presencia digital activa con crecimiento orgánico en redes.</li>
+                    <li>Incremento en ventas directas a través de canales digitales.</li>
+                </ul>
+            `
         }
     };
 
@@ -768,6 +824,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (serviceId) openModal(serviceId);
             return;
         }
+
+        const articleBtn = e.target.closest('.btn-read-more') || e.target.closest('.resource-card');
+        if (articleBtn) {
+            if (e.target.closest('.btn-modal-cta')) return;
+            e.preventDefault();
+            const articleId = articleBtn.getAttribute('data-project') || articleBtn.getAttribute('data-project-id');
+            if (articleId) openModal(articleId);
+            return;
+        }
     });
 
     if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
@@ -788,29 +853,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const chamVariants     = document.querySelectorAll('.cham-variant');
     const animCards        = document.querySelectorAll('.anim-card');
 
-    let mobileCardTargets = [];
-
     if (identidadWrapper && chamMain) {
         let targetProgress = 0;
         let smoothedProgress = 0;
         let animFrameId = null;
-
-        function cacheMobileCardPositions() {
-            const row = document.querySelector('.identidad-cards-row');
-            const cards = document.querySelectorAll('.identidad-cards-row .about-item');
-            if (cards.length !== 4 || !row) { mobileCardTargets = [0, 0, 0, 0]; return; }
-            const prev = row.style.transform;
-            row.style.transform = 'none';
-            void row.offsetHeight;
-            const vw = window.innerWidth;
-            const targets = [];
-            for (let i = 0; i < 4; i++) {
-                const r = cards[i].getBoundingClientRect();
-                targets[i] = vw / 2 - (r.left + r.width / 2);
-            }
-            row.style.transform = prev;
-            mobileCardTargets = targets;
-        }
 
         // ── Configuración de offsets por breakpoint para Desktop ─────────────
         function getFanConfig() {
@@ -851,15 +897,96 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMobile = window.innerWidth <= 768;
 
             if (isMobile) {
-                // --- LÓGICA MÓVIL: CAMALEÓN FIJO + CARDS AUTO-SLIDER ---
-                // Camaleón principal siempre visible, variantes ocultas
-                chamMain.style.opacity = '1';
-                chamMain.style.transform = `translate3d(-50%, -50%, 0) scale(1)`;
+                // --- LÓGICA MÓVIL: ETAPAS DISCRETAS CON SCROLL ---
+                // Stage 1: Main + Card 1 visible desde el inicio (0-25%)
+                // Stage 2: Cian + Card 2 (30-50%)
+                // Stage 3: Magenta + Card 3 (55-75%)
+                // Stage 4: Amarillo + Card 4 → Gris al final (80-100%)
+
+                const s = { // stage ranges (transiciones amplias para fluidez)
+                    s1:     { start: 0.00, end: 0.12 },
+                    t12:    { start: 0.12, end: 0.22 },
+                    s2:     { start: 0.22, end: 0.37 },
+                    t23:    { start: 0.37, end: 0.47 },
+                    s3:     { start: 0.47, end: 0.62 },
+                    t34:    { start: 0.62, end: 0.72 },
+                    s4:     { start: 0.72, end: 1.00 },
+                };
+
+                function inRange(p, r) { return p >= r.start && p <= r.end; }
+                function rProg(p, r) { return (p - r.start) / (r.end - r.start); }
+
+                let opMain = 0, opCian = 0, opMagenta = 0, opAmarillo = 0, opGris = 0;
+                let cardFrom = 0, cardTo = 0, cardMix = 0;
+
+                if (inRange(progress, s.s1)) {
+                    // Stage 1: Main + Card 1 visible desde el primer momento
+                    opMain = 1;
+                    cardFrom = 0; cardTo = 0; cardMix = 0;
+                } else if (inRange(progress, s.t12)) {
+                    const t = easeOut(rProg(progress, s.t12));
+                    opMain = 1 - t; opCian = t;
+                    cardFrom = 0; cardTo = 1; cardMix = t;
+                } else if (inRange(progress, s.s2)) {
+                    opCian = 1;
+                    cardFrom = 1; cardTo = 1; cardMix = 0;
+                } else if (inRange(progress, s.t23)) {
+                    const t = easeOut(rProg(progress, s.t23));
+                    opCian = 1 - t; opMagenta = t;
+                    cardFrom = 1; cardTo = 2; cardMix = t;
+                } else if (inRange(progress, s.s3)) {
+                    opMagenta = 1;
+                    cardFrom = 2; cardTo = 2; cardMix = 0;
+                } else if (inRange(progress, s.t34)) {
+                    const t = easeOut(rProg(progress, s.t34));
+                    opMagenta = 1 - t; opAmarillo = t;
+                    cardFrom = 2; cardTo = 3; cardMix = t;
+                } else {
+                    // Stage 4: Amarillo (80-95%) → Gris (95-100%)
+                    const p = rProg(progress, s.s4);
+                    if (p < 0.75) {
+                        opAmarillo = 1;
+                    } else {
+                        const t = easeOut((p - 0.75) / 0.25);
+                        opAmarillo = 1 - t; opGris = t;
+                    }
+                    cardFrom = 3; cardTo = 3; cardMix = 0;
+                }
+
+                // Aplicar estilos a camaleones
+                chamMain.style.opacity = opMain;
+                chamMain.style.transform = `translate3d(-50%, -50%, 0) scale(${0.9 + 0.1 * opMain})`;
 
                 chamVariants.forEach((el) => {
-                    el.style.opacity = '0';
-                    el.style.transform = `translate3d(-50%, -50%, 0) scale(0.9)`;
+                    const dir = el.getAttribute('data-dir');
+                    let op = 0;
+                    if (dir === 'left-far') op = opCian;
+                    else if (dir === 'left-near') op = opMagenta;
+                    else if (dir === 'right-near') op = opAmarillo;
+                    else if (dir === 'right-far') op = opGris;
+                    el.style.opacity = op;
+                    el.style.transform = `translate3d(-50%, -50%, 0) scale(${0.9 + 0.1 * op})`;
                 });
+
+                // Scroll snap nativo: desplazar el contenedor al centro de la card activa
+                const cardElements = document.querySelectorAll('.identidad-cards-row .about-item');
+                const cardsRow = document.querySelector('.identidad-cards-row');
+
+                if (cardElements.length === 4 && cardsRow) {
+                    const targetIdx = Math.round(cardMix) === 0 && cardFrom === cardTo
+                        ? cardFrom
+                        : cardMix < 0.5 ? cardFrom : cardTo;
+
+                    const targetCard = cardElements[targetIdx];
+                    if (targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
+
+                    cardElements.forEach((card, idx) => {
+                        const isActive = (cardTo === idx) || (cardFrom === idx && cardMix < 0.5);
+                        card.classList.toggle('active', isActive);
+                    });
+                }
             } else {
                 // --- LÓGICA ESCRITORIO (Control original intacto) ---
 
@@ -940,7 +1067,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // ── Recalcular en resize y scroll ────────────────────────────────────
         window.addEventListener('resize', () => {
-            cacheMobileCardPositions();
+            // Forzar re-renderizado instantáneo para evitar saltos visuales bruscos al redimensionar
             onScroll();
             if (animFrameId) {
                 cancelAnimationFrame(animFrameId);
@@ -951,8 +1078,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
         
         window.addEventListener('scroll', onScroll, { passive: true });
-
-        cacheMobileCardPositions();
 
         // Disparar una vez al cargar para establecer el estado inicial correcto
         onScroll();
@@ -965,63 +1090,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── AUTO SLIDER: CARDS DE IDENTIDAD (MÓVIL) ──
-    (function() {
-        const cardsRow = document.querySelector('.identidad-cards-row');
-        const cardElements = document.querySelectorAll('.identidad-cards-row .about-item');
-        if (!cardsRow || cardElements.length !== 4) return;
-
-        let currentIdx = 0;
-        let autoTimer = null;
-        let touchPaused = false;
-
-        function goToCard(idx) {
-            currentIdx = ((idx % cardElements.length) + cardElements.length) % cardElements.length;
-            const tx = mobileCardTargets[currentIdx];
-            if (tx !== undefined) {
-                cardsRow.style.transform = `translateX(${tx}px)`;
-            }
-            cardElements.forEach((card, i) => {
-                card.classList.toggle('active', i === currentIdx);
-            });
-        }
-
-        function advanceCard() {
-            if (touchPaused) return;
-            goToCard(currentIdx + 1);
-        }
-
-        function startAutoSlide() {
-            stopAutoSlide();
-            autoTimer = setInterval(advanceCard, 3500);
-        }
-
-        function stopAutoSlide() {
-            if (autoTimer) {
-                clearInterval(autoTimer);
-                autoTimer = null;
-            }
-        }
-
-        function pauseOnTouch() {
-            touchPaused = true;
-            stopAutoSlide();
-        }
-
-        function resumeOnTouch() {
-            touchPaused = false;
-            startAutoSlide();
-        }
-
-        cardsRow.addEventListener('touchstart', pauseOnTouch, { passive: true });
-        cardsRow.addEventListener('touchend', resumeOnTouch, { passive: true });
-
-        if (window.innerWidth <= 768) {
-            goToCard(0);
-            startAutoSlide();
-        }
-    })();
-
     // ── AUTO SLIDER: SERVICIOS DESTACADOS ──
     (function() {
         const wrapper = document.querySelector('.services-carousel-wrapper');
@@ -1031,13 +1099,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = track.querySelectorAll('.service-card');
         if (cards.length < 2) return;
 
+        if (window.innerWidth <= 768 || 'ontouchstart' in window) return;
+
         cards.forEach(c => track.appendChild(c.cloneNode(true)));
 
-        const isMobile = window.innerWidth <= 768;
-        let speed = isMobile ? 0.4 : 0.6;
+        let speed = 0.6;
         let paused = false;
         let rafId = null;
-        let resumeTimer = null;
 
         function scroll() {
             if (!paused) {
@@ -1045,81 +1113,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (wrapper.scrollLeft >= track.scrollWidth / 2) {
                     wrapper.scrollLeft = 0;
                 }
-                rafId = requestAnimationFrame(scroll);
-            } else {
-                rafId = null;
             }
-        }
-
-        function startScroll() {
-            if (rafId) return;
             rafId = requestAnimationFrame(scroll);
         }
 
-        function stopScroll() {
-            if (rafId) {
-                cancelAnimationFrame(rafId);
-                rafId = null;
-            }
-        }
+        wrapper.addEventListener('mouseenter', () => { paused = true; });
+        wrapper.addEventListener('mouseleave', () => { paused = false; });
+        wrapper.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+        wrapper.addEventListener('touchend', () => { paused = false; }, { passive: true });
 
-        function pauseScroll() {
-            paused = true;
-            stopScroll();
-            if (resumeTimer) {
-                clearTimeout(resumeTimer);
-                resumeTimer = null;
-            }
-        }
-
-        function resumeScroll() {
-            if (resumeTimer) clearTimeout(resumeTimer);
-            resumeTimer = setTimeout(() => {
-                paused = false;
-                startScroll();
-                resumeTimer = null;
-            }, isMobile ? 600 : 200);
-        }
-
-        wrapper.addEventListener('mouseenter', pauseScroll);
-        wrapper.addEventListener('mouseleave', resumeScroll);
-        wrapper.addEventListener('touchstart', pauseScroll, { passive: true });
-        wrapper.addEventListener('touchend', resumeScroll, { passive: true });
-
-        startScroll();
-    })();
-
-    // ── CONTROL DE VIDEO SCRUB MÓVIL ──
-    (function() {
-        const scrubVideo = document.querySelector('.scrub-mobile-video');
-        if (!scrubVideo) return;
-        let hasPlayed = false;
-
-        // 1) Kickstart con primer toque del usuario (requerido en iOS)
-        function kickstartVideo() {
-            if (!hasPlayed && scrubVideo.paused) {
-                scrubVideo.play().catch(() => {});
-                hasPlayed = true;
-            }
-            document.removeEventListener('touchstart', kickstartVideo);
-            document.removeEventListener('click', kickstartVideo);
-        }
-        document.addEventListener('touchstart', kickstartVideo, { passive: true });
-        document.addEventListener('click', kickstartVideo);
-
-        // 2) Pausar al salir de vista, reanudar al entrar
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (scrubVideo.paused && hasPlayed) {
-                        scrubVideo.play().catch(() => {});
-                    }
-                } else if (hasPlayed) {
-                    scrubVideo.pause();
-                }
-            });
-        }, { threshold: 0.2 });
-        videoObserver.observe(scrubVideo);
+        rafId = requestAnimationFrame(scroll);
     })();
 
     // ── SOMOS ROTATOR ──
@@ -1150,4 +1153,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ── IPHONE FEED: SCROLL INFINITO POR JS ──
+    (function() {
+        const feed = document.querySelector('.ig-feed-inner');
+        if (!feed) return;
+        let pos = 0;
+        const speed = 0.5;
+        let rafId = null;
+        function scrollFeed() {
+            const halfH = feed.scrollHeight / 2;
+            pos += speed;
+            if (pos >= halfH) pos = 0;
+            feed.style.transform = `translateY(-${pos}px)`;
+            rafId = requestAnimationFrame(scrollFeed);
+        }
+        // Pausar al salir de viewport
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!rafId) rafId = requestAnimationFrame(scrollFeed);
+                } else {
+                    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                }
+            });
+        }, { threshold: 0.1 });
+        obs.observe(feed.closest('.iphone-mockup') || feed);
+        rafId = requestAnimationFrame(scrollFeed);
+    })();
+
 });
+
+// ── CONTROL DE VIDEOS AUTOPLAY ──
+(function() {
+    const videos = document.querySelectorAll('.scrub-mobile-video');
+    if (!videos.length) return;
+    let userInteracted = false;
+
+    function kickstartAll() {
+        if (userInteracted) return;
+        userInteracted = true;
+        videos.forEach(v => {
+            if (v.paused) v.play().catch(() => {});
+        });
+    }
+    document.addEventListener('touchstart', kickstartAll, { passive: true, once: true });
+    document.addEventListener('click', kickstartAll, { once: true });
+
+    videos.forEach(video => {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (video.paused && userInteracted) video.play().catch(() => {});
+                } else {
+                    if (!video.paused) video.pause();
+                }
+            });
+        }, { threshold: 0.3 });
+        obs.observe(video);
+    });
+})();
