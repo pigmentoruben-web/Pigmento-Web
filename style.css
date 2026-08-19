@@ -1266,38 +1266,6 @@ nav a:hover {
     pointer-events: none;
 }
 
-/* ── Conclusión ── */
-.diferencial-conclusion {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    color: #5F5F5F;
-    line-height: 1.7;
-    font-weight: 500;
-    max-width: 700px;
-    margin: 0 auto;
-    position: relative;
-    padding-top: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: difConclusionIn 0.8s 1.2s ease forwards;
-}
-
-@keyframes difConclusionIn {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.diferencial-conclusion::before {
-    content: '\201C';
-    position: absolute;
-    top: -0.2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 3rem;
-    color: var(--accent);
-    opacity: 0.2;
-    font-weight: 900;
-    line-height: 1;
-}
-
 /* ── Desktop testimonios ── */
 @media (min-width: 769px) {
     .testimonios-grid {
@@ -1316,6 +1284,125 @@ nav a:hover {
         max-height: 420px;
         width: auto;
         max-width: 280px;
+    }
+}
+
+/* ── CLIENTES QUE CONFIARON EN PIGMENTO ── */
+.clientes-section {
+    position: relative;
+    z-index: 2;
+    padding: 0 0 100px;
+    text-align: center;
+}
+
+.clientes-tagline {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.clientes-title {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    margin-bottom: 2.5rem;
+    text-transform: none;
+}
+
+/* Fila horizontal en escritorio — carrusel infinito automático */
+.clientes-marquee {
+    overflow: hidden;
+}
+
+.clientes-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.5rem 3rem;
+}
+
+.clientes-logos.is-marquee {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0;
+    width: max-content;
+    animation: marqueeScroll 45s linear infinite;
+}
+
+.clientes-logos.is-marquee:hover {
+    animation-play-state: paused;
+}
+
+.clientes-logos.is-marquee .cliente-logo {
+    margin-right: 3.5rem;
+}
+
+/* Segunda fila: se mueve de izquierda a derecha */
+.clientes-marquee--row1 {
+    margin-bottom: 2.5rem;
+}
+
+.clientes-marquee--row2 .clientes-logos.is-marquee {
+    animation-name: marqueeScrollReverse;
+}
+
+@keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes marqueeScrollReverse {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
+
+.cliente-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    cursor: default;
+}
+
+.cliente-logo img {
+    max-height: 72px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: block;
+}
+
+/* Grilla en versión móvil: una sola grilla con todas las marcas */
+@media (max-width: 768px) {
+    .clientes-section {
+        padding: 0 0 60px;
+    }
+
+    .clientes-section .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem 1.5rem;
+    }
+
+    .clientes-tagline,
+    .clientes-title {
+        grid-column: 1 / -1;
+    }
+
+    .clientes-marquee,
+    .clientes-logos {
+        display: contents;
+    }
+
+    .cliente-logo img {
+        max-height: 36px;
+        max-width: 100%;
     }
 }
 

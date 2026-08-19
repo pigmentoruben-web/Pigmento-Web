@@ -1153,6 +1153,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ── CLIENTES: CARRUSEL INFINITO (desktop) / GRULLA (mobile) ──
+    (function() {
+        const logosContainers = document.querySelectorAll('.clientes-logos');
+        if (!logosContainers.length) return;
+
+        logosContainers.forEach((logosContainer) => {
+            let cloned = false;
+
+            function setupMarquee() {
+                const isDesktop = window.innerWidth > 768;
+
+                if (isDesktop && !cloned) {
+                    // Duplicar el set de logos para un loop perfecto
+                    const clone = logosContainer.innerHTML;
+                    logosContainer.insertAdjacentHTML('beforeend', clone);
+                    logosContainer.classList.add('is-marquee');
+                    cloned = true;
+                } else if (!isDesktop && cloned) {
+                    // Volver a la grilla: eliminar la mitad duplicada
+                    const items = logosContainer.querySelectorAll('.cliente-logo');
+                    const half = items.length / 2;
+                    for (let i = items.length - 1; i >= half; i--) {
+                        items[i].remove();
+                    }
+                    logosContainer.classList.remove('is-marquee');
+                    cloned = false;
+                }
+            }
+
+            setupMarquee();
+            window.addEventListener('resize', setupMarquee);
+        });
+    })();
+
     // ── IPHONE FEED: SCROLL INFINITO POR JS ──
     (function() {
         const feed = document.querySelector('.ig-feed-inner');
