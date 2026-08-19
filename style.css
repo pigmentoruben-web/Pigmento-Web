@@ -1714,7 +1714,7 @@ nav a:hover {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
     margin-bottom: 40px;
 }
@@ -1772,6 +1772,30 @@ nav a:hover {
     gap: 0.6rem;
     font-size: 0.9rem;
     color: #5F5F5F;
+}
+
+.footer-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-info-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: #5F5F5F;
+}
+
+.footer-info-list li i {
+    width: 16px;
+    height: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
 }
 
 .footer-contact-list li i {
