@@ -1139,12 +1139,38 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     // ── TESTIMONIOS VIDEO PLAYER ──
+    (function() {
+        // Generar póster (primer fotograma) desde el propio video
+        const testimonioVideos = document.querySelectorAll('.testimonio-video');
+        testimonioVideos.forEach(video => {
+            if (video.getAttribute('poster')) return;
+            const setPoster = () => {
+                if (!video.videoWidth || video.getAttribute('poster')) return;
+                try {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    video.setAttribute('poster', canvas.toDataURL('image/jpeg', 0.7));
+                } catch (e) {}
+            };
+            video.addEventListener('loadeddata', setPoster);
+            video.addEventListener('seeked', setPoster);
+            video.addEventListener('loadedmetadata', () => {
+                // Forzar el primer fotograma
+                try { video.currentTime = 0.01; } catch (e) {}
+            });
+        });
+    })();
+
     document.addEventListener('click', (e) => {
         const card = e.target.closest('.testimonio-card');
         if (!card) return;
         const video = card.querySelector('.testimonio-video');
         if (!video) return;
         if (video.paused) {
+            video.muted = false; // Habilitar audio
             video.play();
             card.classList.add('playing');
         } else {
