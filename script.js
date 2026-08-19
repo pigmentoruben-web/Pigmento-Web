@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA DEL MENÚ MÓVIL ---
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const mainNav = document.getElementById('main-nav');
-    const navLinks = mainNav.querySelectorAll('a');
 
     if (menuToggle && mainNav) {
+        const navLinks = mainNav.querySelectorAll('a');
         menuToggle.addEventListener('click', () => {
             mainNav.classList.toggle('active');
             document.body.classList.toggle('menu-open', mainNav.classList.contains('active'));
