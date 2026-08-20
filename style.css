@@ -1030,7 +1030,7 @@ nav a:hover {
 /* ── BANNER TRABAJOS: SLIDER DE IMÁGENES ── */
 .work-banner-section {
     padding: 0;
-    background-color: var(--bg-primary);
+    background-color: #ffffff;
     position: relative;
 }
 
