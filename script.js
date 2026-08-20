@@ -11,7 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!sessionStorage.getItem('preloaderShown')) {
             sessionStorage.setItem('preloaderShown', 'true');
             const preloaderText = preloader.querySelector('.preloader-text');
-            
+            const isMobile = window.innerWidth <= 768;
+            // En móvil los tiempos se reducen para no hacer sentir lenta la carga
+            const holdTime  = isMobile ? 800  : 2000;
+            const splitTime = isMobile ? 300  : 800;
+            const hideTime  = isMobile ? 200  : 800;
+
             setTimeout(() => {
                 // 1. Entra el texto
                 preloaderText.classList.add('step-1');
@@ -28,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         setTimeout(() => {
                             // 4. Se oculta por completo
                             preloader.classList.add('hidden');
-                        }, 800);
-                    }, 800);
-                }, 2000);
+                        }, hideTime);
+                    }, splitTime);
+                }, holdTime);
             }, 100);
         } else {
             // Ya se mostró en esta sesión, ocultarlo inmediatamente
@@ -857,6 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let targetProgress = 0;
         let smoothedProgress = 0;
         let animFrameId = null;
+        let lastCardScrollIdx = -1;
 
         // ── Configuración de offsets por breakpoint para Desktop ─────────────
         function getFanConfig() {
@@ -978,7 +984,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         : cardMix < 0.5 ? cardFrom : cardTo;
 
                     const targetCard = cardElements[targetIdx];
-                    if (targetCard) {
+                    // Evitar llamar scrollIntoView con smooth en cada frame (causa jank en móvil);
+                    // solo disparar cuando la tarjeta activa realmente cambia.
+                    if (targetCard && targetIdx !== lastCardScrollIdx) {
+                        lastCardScrollIdx = targetIdx;
                         targetCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                     }
 
@@ -1217,6 +1226,10 @@ document.addEventListener('DOMContentLoaded', () => {
     (function() {
         const feed = document.querySelector('.ig-feed-inner');
         if (!feed) return;
+        // El iPhone vive en la sección desktop-only; en móvil está oculto y este
+        // loop rAF solo quemaría CPU/batería sin ser visible.
+        if (window.innerWidth <= 768) return;
+
         let pos = 0;
         const speed = 0.5;
         let rafId = null;
@@ -1238,37 +1251,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { threshold: 0.1 });
         obs.observe(feed.closest('.iphone-mockup') || feed);
-        rafId = requestAnimationFrame(scrollFeed);
     })();
 
 });
-
-// ── CONTROL DE VIDEOS AUTOPLAY ──
-(function() {
-    const videos = document.querySelectorAll('.scrub-mobile-video');
-    if (!videos.length) return;
-    let userInteracted = false;
-
-    function kickstartAll() {
-        if (userInteracted) return;
-        userInteracted = true;
-        videos.forEach(v => {
-            if (v.paused) v.play().catch(() => {});
-        });
-    }
-    document.addEventListener('touchstart', kickstartAll, { passive: true, once: true });
-    document.addEventListener('click', kickstartAll, { once: true });
-
-    videos.forEach(video => {
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (video.paused && userInteracted) video.play().catch(() => {});
-                } else {
-                    if (!video.paused) video.pause();
-                }
-            });
-        }, { threshold: 0.3 });
-        obs.observe(video);
-    });
-})();
