@@ -1351,6 +1351,32 @@ document.addEventListener('DOMContentLoaded', () => {
         counters.forEach(c => obs.observe(c));
     })();
 
+    // ── QUÉ HACEMOS MÓVIL: CUADROS CON REVELADO AL SCROLL ──
+    (function() {
+        if (window.innerWidth > 768) return;
+        const cards = document.querySelectorAll('.quehacemos-mobile-cards .about-item');
+        if (!cards.length) return;
+
+        cards.forEach((card, i) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(28px)';
+            card.style.transition =
+                `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.12}s, ` +
+                `transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.12}s`;
+        });
+
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        cards.forEach(c => obs.observe(c));
+    })();
+
     // ── MÉTODO MÓVIL: LÍNEA DE TIEMPO CON REVELADO AL SCROLL ──
     (function() {
         if (window.innerWidth > 768) return;
