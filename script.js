@@ -591,6 +591,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 </ul>
             `
         },
+        'redes-sociales-pauta': {
+            tag: 'Servicio • Redes, Contenido & Pauta',
+            title: 'Redes sociales y pauta digital',
+            gradient: 'linear-gradient(135deg, #DE075D 0%, #7B0035 100%)',
+            icon: 'instagram',
+            client: 'Presencia Digital Activa',
+            services: 'Estrategia de contenidos, diseño de cuadrículas, copywriting, filmación de Reels, campañas Meta Ads, segmentación y reportes de ROI.',
+            team: 'Social Media Manager, Media Buyer & Diseñadores Gráficos',
+            date: 'Servicio Activo',
+            desc: `
+                <p><strong>El Desafío:</strong> Publicar por estar no alcanza y pautar a ciegas desperdicia presupuesto. Sin intención estratégica ni optimización de métricas, el contenido se diluye y la inversión no rinde.</p>
+                
+                <h3>Nuestro Enfoque</h3>
+                <p>Planificamos contenidos con intención, tono y diseño, y los potenciamos con campañas digitales segmentadas y optimizadas:</p>
+                <ul>
+                    <li><strong>Planificación de Contenidos:</strong> Pilares de contenido para educar, fidelizar y convertir, con copywriting que inicia conversaciones reales.</li>
+                    <li><strong>Estrategia de Embudos:</strong> Campañas para cada etapa del usuario (descubrimiento, consideración, conversión y retención).</li>
+                    <li><strong>Optimización Creativa:</strong> Probamos distintos creativos y videos para encontrar los anuncios más rentables, enfocándonos en CAC y ROAS.</li>
+                </ul>
+                
+                <h3>Entregables Clave</h3>
+                <ul>
+                    <li>Calendario de Contenidos Mensual y Diseño de Posts, Reels e Historias.</li>
+                    <li>Configuración de Píxeles, Públicos Similares y Campañas de Retargeting.</li>
+                    <li>Reporte de Resultados Mensual con foco en ventas, contactos y retorno.</li>
+                </ul>
+            `
+        },
         'campanas-publicitarias': {
             tag: 'Servicio • Campañas Creativas',
             title: 'Campañas publicitarias',
@@ -1099,43 +1127,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── AUTO SLIDER: SERVICIOS DESTACADOS ──
-    (function() {
-        const wrapper = document.querySelector('.services-carousel-wrapper');
-        const track = document.querySelector('.services-carousel');
-        if (!wrapper || !track) return;
-
-        const cards = track.querySelectorAll('.service-card');
-        if (cards.length < 2) return;
-
-        if (window.innerWidth <= 768 || 'ontouchstart' in window) return;
-
-        cards.forEach(c => track.appendChild(c.cloneNode(true)));
-
-        let speed = 0.6;
-        let paused = false;
-        let rafId = null;
-
-        function scroll() {
-            if (!paused) {
-                wrapper.scrollLeft += speed;
-                if (wrapper.scrollLeft >= track.scrollWidth / 2) {
-                    wrapper.scrollLeft = 0;
-                }
-            }
-            rafId = requestAnimationFrame(scroll);
-        }
-
-        wrapper.addEventListener('mouseenter', () => { paused = true; });
-        wrapper.addEventListener('mouseleave', () => { paused = false; });
-        wrapper.addEventListener('touchstart', () => { paused = true; }, { passive: true });
-        wrapper.addEventListener('touchend', () => { paused = false; }, { passive: true });
-
-        rafId = requestAnimationFrame(scroll);
-    })();
-
     // ── SOMOS ROTATOR ──
     (function() {
+        // En móvil se fija la frase "Somos comunicación" sin efecto de cambio
+        if (window.innerWidth <= 768) return;
         const words = document.querySelectorAll('.somos-word');
         if (words.length < 2) return;
         let current = 0;
@@ -1251,6 +1246,64 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { threshold: 0.1 });
         obs.observe(feed.closest('.iphone-mockup') || feed);
+    })();
+
+    // ── BANNER TRABAJOS: CARRUSEL AUTO ──
+    (function() {
+        const slider = document.querySelector('.work-banner-slider');
+        if (!slider) return;
+        const slides = slider.querySelectorAll('.work-banner-slide');
+        if (slides.length < 2) return;
+
+        const interval = 4000;
+        let index = 0;
+        let timer = null;
+
+        const slideW = () => slides[0].getBoundingClientRect().width;
+
+        function goTo(i) {
+            index = ((i % slides.length) + slides.length) % slides.length;
+            slider.scrollTo({ left: index * slideW(), behavior: 'smooth' });
+        }
+
+        function start() {
+            stop();
+            timer = setInterval(() => goTo(index + 1), interval);
+        }
+
+        function stop() {
+            if (timer) { clearInterval(timer); timer = null; }
+        }
+
+        // Mantener el índice sincronizado si el usuario desliza manualmente
+        slider.addEventListener('scroll', () => {
+            if (slider.scrollWidth <= slider.clientWidth) return;
+            const idx = Math.round(slider.scrollLeft / slideW());
+            if (idx !== index) index = idx;
+        }, { passive: true });
+
+        // Pausar al interactuar y reanudar al salir
+        slider.addEventListener('mouseenter', stop);
+        slider.addEventListener('mouseleave', start);
+        slider.addEventListener('touchstart', stop, { passive: true });
+        slider.addEventListener('touchend', start, { passive: true });
+
+        // Flechas laterales
+        const prevBtn = document.querySelector('.work-banner-prev');
+        const nextBtn = document.querySelector('.work-banner-next');
+        if (prevBtn) prevBtn.addEventListener('click', () => { goTo(index - 1); start(); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { goTo(index + 1); start(); });
+
+        // Pausar cuando la sección sale del viewport
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) start();
+                else stop();
+            });
+        }, { threshold: 0.2 });
+        obs.observe(slider);
+
+        start();
     })();
 
 });
