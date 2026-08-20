@@ -3337,14 +3337,14 @@ body.modal-open {
 
     .validation-content-row {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.25rem;
     }
 
     .cdu-membership-box {
         justify-content: center;
         text-align: left;
         max-width: 600px;
-        margin: 2.5rem auto 0;
+        margin: 0 auto;
     }
 }
 
