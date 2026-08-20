@@ -1027,7 +1027,7 @@ nav a:hover {
     transform-origin: left;
 }
 
-/* ── BANNER TRABAJOS: SLIDER DE IMÁGENES (placeholders grises) ── */
+/* ── BANNER TRABAJOS: SLIDER DE IMÁGENES ── */
 .work-banner-section {
     padding: 0;
     background-color: var(--bg-primary);
@@ -1108,6 +1108,12 @@ nav a:hover {
 }
 
 @media (max-width: 768px) {
+    .work-banner-section {
+        display: flex;
+        align-items: center;
+        height: 100dvh;
+    }
+
     .work-banner-slide {
         aspect-ratio: 4 / 5;
     }
