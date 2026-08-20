@@ -324,8 +324,10 @@ nav a:hover {
 
 .ticker {
     display: flex;
+    width: max-content;
     white-space: nowrap;
-    animation: scrollTicker 20s linear infinite;
+    will-change: transform;
+    animation: scrollTicker 30s linear infinite;
 }
 
 .ticker span {
@@ -1352,6 +1354,43 @@ nav a:hover {
     text-transform: none;
 }
 
+/* Contadores de estadísticas */
+.clientes-counters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+.clientes-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    background: #ac0176;
+    border-radius: 1.5rem;
+    padding: 2rem 3rem;
+}
+
+.counter-number {
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.counter-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    color: #ffffff;
+    opacity: 1;
+}
+
 /* Fila horizontal en escritorio — carrusel infinito automático */
 .clientes-marquee {
     overflow: hidden;
@@ -1437,6 +1476,38 @@ nav a:hover {
     .clientes-marquee,
     .clientes-logos {
         display: contents;
+    }
+
+    .clientes-counters {
+        grid-column: 1 / -1;
+        gap: 0;
+        margin-top: 2rem;
+        background: #ac0176;
+        border-radius: 1.5rem;
+        padding: 1.75rem 1rem;
+    }
+
+    .clientes-counter {
+        flex: 1;
+        position: relative;
+        background: transparent;
+        padding: 0;
+        gap: 0.25rem;
+    }
+
+    .clientes-counter + .clientes-counter::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 3.5rem;
+        background: rgba(255, 255, 255, 0.55);
+    }
+
+    .counter-number {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
     }
 
     .cliente-logo {
@@ -1528,6 +1599,12 @@ nav a:hover {
     color: #4A4A4A;
     line-height: 1.7;
     margin-bottom: 2.5rem;
+}
+
+.cdu-memberships {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .cdu-membership-box {
@@ -1854,6 +1931,34 @@ nav a:hover {
     color: var(--accent);
 }
 
+.footer-social {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--text-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social a:hover {
+    background: var(--accent);
+    transform: translateY(-3px);
+}
+
+.footer-social svg {
+    width: 18px;
+    height: 18px;
+}
+
 .footer-contact-info {
     font-size: 0.8rem;
     color: #8F8F8F;
@@ -2036,7 +2141,7 @@ nav a:hover {
     }
 
     .ticker {
-        animation-duration: 5s;
+        animation-duration: 20s;
     }
 
     .service-card {
@@ -2550,6 +2655,19 @@ body.start-hero-animation .word.active {
 
 @media (max-width: 768px) {
     .resources-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+    .notes-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -3757,6 +3875,10 @@ body.modal-open {
     .desktop-only {
         display: none !important;
     }
+
+    .cta-card p {
+        display: none;
+    }
 }
 
 /* ── MANIFIESTO MOBILE ── */
@@ -3885,5 +4007,10 @@ body.modal-open {
 
 /* ── PROYECTOS: OCULTO TEMPORALMENTE (se activará más adelante) ── */
 #proyectos {
+    display: none;
+}
+
+/* ── SERVICIOS: OCULTO TEMPORALMENTE (se activará más adelante) ── */
+#servicios {
     display: none;
 }

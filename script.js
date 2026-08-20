@@ -861,9 +861,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const articleBtn = e.target.closest('.btn-read-more') || e.target.closest('.resource-card');
         if (articleBtn) {
             if (e.target.closest('.btn-modal-cta')) return;
-            e.preventDefault();
             const articleId = articleBtn.getAttribute('data-project') || articleBtn.getAttribute('data-project-id');
-            if (articleId) openModal(articleId);
+            if (articleId) {
+                e.preventDefault();
+                openModal(articleId);
+            }
             return;
         }
     });
@@ -1304,6 +1306,49 @@ document.addEventListener('DOMContentLoaded', () => {
         obs.observe(slider);
 
         start();
+    })();
+
+    // ── BOTÓN "VER SERVICIOS": LLEVA A LOS CUADROS DEL CAMALEÓN ──
+    document.querySelectorAll('[data-ver-servicios]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = window.innerWidth <= 768
+                ? document.getElementById('que-hacemos-mobile-cards')
+                : document.getElementById('que-hacemos-cards');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // ── CONTADORES ANIMADOS (años / marcas) ──
+    (function() {
+        const counters = document.querySelectorAll('.counter-number');
+        if (!counters.length) return;
+
+        const duration = 2000;
+
+        function animate(counter) {
+            const target = parseInt(counter.dataset.counter, 10) || 0;
+            const prefix = counter.dataset.prefix || '';
+            const start = performance.now();
+
+            function tick(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                counter.textContent = prefix + Math.round(eased * target);
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animate(entry.target);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+        counters.forEach(c => obs.observe(c));
     })();
 
     // ── MÉTODO MÓVIL: LÍNEA DE TIEMPO CON REVELADO AL SCROLL ──
