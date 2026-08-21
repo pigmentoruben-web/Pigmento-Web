@@ -285,6 +285,47 @@ nav a:hover {
     justify-content: center;
 }
 
+
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.scroll-btn {
+    width: 44px;
+    height: 44px;
+    border: 2px solid rgba(255,255,255,0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.scroll-btn:hover {
+    border-color: rgba(255,255,255,1);
+    transform: translateX(-50%) scale(1.1);
+}
+
+.scroll-btn:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 4px;
+}
+
+/* Floating animation */
+@keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+}
+
+.scroll-btn {
+    animation: float 3s ease-in-out infinite;
+}
+
 .btn-primary {
     background-color: var(--btn-bg);
     color: #FFFFFF;
