@@ -1377,20 +1377,17 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach(c => obs.observe(c));
     })();
 
-    // ── MÉTODO MÓVIL: LÍNEA DE TIEMPO CON REVELADO AL SCROLL ──
+    // ── MÉTODO: LÍNEA DE TIEMPO CON REVELADO AL SCROLL ──
     (function() {
-        if (window.innerWidth > 768) return;
         const steps = document.querySelectorAll('.method-step');
         if (!steps.length) return;
 
-        const delay = (i) => `${i * 0.15}s`;
-
-        steps.forEach((step, i) => {
+        steps.forEach((step) => {
             step.style.opacity = '0';
             step.style.transform = 'translateY(28px)';
             step.style.transition =
-                `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay(i)}, ` +
-                `transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay(i)}`;
+                'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), ' +
+                'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)';
         });
 
         const obs = new IntersectionObserver((entries) => {
@@ -1401,7 +1398,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     obs.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.2 });
+        }, { 
+            threshold: 0.15,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
         steps.forEach(s => obs.observe(s));
     })();
 
