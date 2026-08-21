@@ -806,7 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${data.desc}
                 </div>
                 <div class="modal-action-row">
-                    <a href="https://wa.me/59899123456" class="btn btn-solid btn-modal-cta">Quiero algo parecido para mi marca</a>
+                    <a href="https://wa.me/59899732995" class="btn btn-solid btn-modal-cta" target="_blank" rel="noopener">Quiero algo parecido para mi marca</a>
                 </div>
             </div>
         `;
