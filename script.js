@@ -1319,6 +1319,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ── SCROLL CUE HERO: DESPLAZAMIENTO SUAVE HACIA EL MANIFIESTO ──
+    document.querySelectorAll('.hero-scroll-cue').forEach(cue => {
+        cue.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = window.innerWidth <= 768
+                ? document.getElementById('manifiesto-mobile')
+                : document.getElementById('manifiesto');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
     // ── CONTADORES ANIMADOS (años / marcas) ──
     (function() {
         const counters = document.querySelectorAll('.counter-number');

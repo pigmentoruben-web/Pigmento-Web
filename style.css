@@ -286,44 +286,110 @@ nav a:hover {
 }
 
 
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+/* Scroll Cue Hero (Moderno, Circular, Flotante) */
+.hero-scroll-cue {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.8rem;
+    text-decoration: none;
+    cursor: pointer;
     z-index: 10;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.scroll-btn {
-    width: 44px;
-    height: 44px;
-    border: 2px solid rgba(255,255,255,0.7);
+.hero-scroll-cue .scroll-cue-circle {
+    position: relative;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(172, 1, 118, 0.22);
+    box-shadow: 0 8px 24px rgba(172, 1, 118, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    color: var(--btn-bg);
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation: floatScrollCue 3.2s ease-in-out infinite;
 }
 
-.scroll-btn:hover {
-    border-color: rgba(255,255,255,1);
-    transform: translateX(-50%) scale(1.1);
+/* Anillo de pulso sutil */
+.hero-scroll-cue .scroll-cue-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(172, 1, 118, 0.3);
+    opacity: 0;
+    animation: pulseScrollRing 3.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    pointer-events: none;
 }
 
-.scroll-btn:focus-visible {
-    outline: 2px solid var(--text-primary);
+/* Icono animado hacia abajo */
+.hero-scroll-cue .scroll-cue-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--btn-bg);
+    transition: transform 0.3s ease, color 0.3s ease;
+    animation: bounceChevron 3.2s ease-in-out infinite;
+}
+
+/* Hover & Focus */
+.hero-scroll-cue:hover .scroll-cue-circle,
+.hero-scroll-cue:focus-visible .scroll-cue-circle {
+    background: #ffffff;
+    border-color: var(--btn-bg);
+    color: var(--btn-bg);
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 12px 30px rgba(172, 1, 118, 0.25), 0 0 20px rgba(222, 7, 93, 0.18);
+}
+
+.hero-scroll-cue:hover .scroll-cue-icon {
+    color: var(--accent);
+    transform: translateY(2px);
+}
+
+.hero-scroll-cue:focus-visible {
+    outline: 2px solid var(--btn-bg);
     outline-offset: 4px;
+    border-radius: 50%;
 }
 
-/* Floating animation */
-@keyframes float {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
+/* Animaciones */
+@keyframes floatScrollCue {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(8px);
+    }
 }
 
-.scroll-btn {
-    animation: float 3s ease-in-out infinite;
+@keyframes bounceChevron {
+    0%, 100% {
+        transform: translateY(-1px);
+    }
+    50% {
+        transform: translateY(3px);
+    }
+}
+
+@keyframes pulseScrollRing {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.75;
+    }
+    50% {
+        transform: scale(1.25);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
 }
 
 .btn-primary {
@@ -3691,6 +3757,20 @@ body.modal-open {
     .hero-tagline {
         font-size: 0.7rem;
         letter-spacing: 2px;
+    }
+
+    .hero-scroll-cue {
+        margin-top: 1.6rem;
+    }
+
+    .hero-scroll-cue .scroll-cue-circle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .hero-scroll-cue .scroll-cue-icon {
+        width: 18px;
+        height: 18px;
     }
 
     .service-card {
