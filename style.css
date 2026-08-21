@@ -1541,13 +1541,16 @@ nav a:hover {
 .validation-info-col {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .validation-content-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 3rem;
-    align-items: start;
+    width: 100%;
 }
 
 .validation-info-col h2 {
@@ -1563,6 +1566,7 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
+    justify-content: center;
     gap: 0.3em;
 }
 
@@ -1595,16 +1599,19 @@ nav a:hover {
 }
 
 .validation-trayectoria {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: #4A4A4A;
     line-height: 1.7;
-    margin-bottom: 2.5rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .cdu-memberships {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
 }
 
 .cdu-membership-box {
@@ -1616,6 +1623,7 @@ nav a:hover {
     box-shadow: 0 4px 24px rgba(0,0,0,0.04);
     padding: 2rem;
     border-radius: 20px;
+    height: 100%;
 }
 
 .cdu-logo-svg {
@@ -3336,6 +3344,10 @@ body.modal-open {
     }
 
     .validation-content-row {
+        gap: 1.5rem;
+    }
+
+    .cdu-memberships {
         grid-template-columns: 1fr;
         gap: 1.25rem;
     }
