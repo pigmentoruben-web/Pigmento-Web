@@ -139,8 +139,10 @@ header {
     left: 0;
     right: 0;
     width: 100%;
+    min-height: 72px;
     z-index: 1000;
-    background: rgba(249, 247, 242, 0.75);
+    background-color: var(--bg-primary);
+    background: rgba(249, 247, 242, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(17, 17, 17, 0.06);
@@ -159,8 +161,9 @@ header .container {
     align-items: center;
     width: 100%;
     max-width: 100%;
+    min-height: 72px;
     margin: 0;
-    padding: 1.2rem 5%;
+    padding: 0.8rem 5%;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
@@ -223,13 +226,15 @@ nav a:hover {
 }
 
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--bg-primary);
     position: relative;
     overflow: hidden;
+    padding-top: 5.5rem;
+    box-sizing: border-box;
 }
 
 /* Capas de Color Sutiles */
@@ -2199,7 +2204,11 @@ nav a:hover {
 
 @media (max-width: 768px) {
     .hero {
-        height: 100dvh;
+        min-height: 100dvh;
+        height: auto;
+        padding-top: 6rem;
+        padding-bottom: 2.5rem;
+        box-sizing: border-box;
     }
 
     /* El filtro SVG feTurbulence es costoso en GPU móvil; es un grano casi
