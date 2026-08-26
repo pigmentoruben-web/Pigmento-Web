@@ -2310,6 +2310,13 @@ nav a:hover {
         line-height: 1.15;
     }
 
+    /* Rotador de palabras dinámicas en el Hero para móvil */
+    .word-rotator .rotator-word,
+    .word-rotator .rotator-ghost {
+        font-size: 1.1em;
+        font-weight: 500;
+    }
+
     .hero-description {
         font-size: 1.05rem;
         line-height: 1.6;
