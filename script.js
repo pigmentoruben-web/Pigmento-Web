@@ -199,8 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas?.getContext('2d');
     const progressBar = document.querySelector('.scroll-scrub-progress-bar');
 
-    const TOTAL_FRAMES = 300;
-    const FRAME_BASE = 'asset/img/Secuencia posteo/SC-01_';
+    const TOTAL_FRAMES = 150;
+    const FRAME_BASE = 'asset/img/Secuencia posteo/App Promo - Phone 16 Pro';
 
     const frames = [];
     let framesLoaded = 0;
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let imgNaturalH = 0;
 
     function padNum(n) {
-        return String(999 + n);
+        return String(n).padStart(3, '0');
     }
 
     function resizeCanvas() {
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             progressBar.style.width = `${progress * 100}%`;
         }
 
-        const frameIndex = Math.round(progress * (TOTAL_FRAMES - 1));
+        const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(progress * (TOTAL_FRAMES - 1))));
         drawFrame(frameIndex);
 
         // Text-reveal
@@ -297,8 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const batchSize = 20;
         let loaded = 0;
         while (loadIdx < TOTAL_FRAMES && loaded < batchSize) {
+            const currentIdx = loadIdx;
             const img = new Image();
-            img.src = FRAME_BASE + padNum(loadIdx + 1) + '.webp';
+            img.src = FRAME_BASE + padNum(currentIdx) + '.webp';
             img.onload = () => {
                 framesLoaded++;
                 if (framesLoaded === 1) {
